@@ -84,7 +84,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/Ryland/Documents/NCS_Projects/ttpms_v2_internal/nrf52833dk/zephyr/drivers/serial/cmake_install.cmake")
+  include("C:/Users/Ryland/Documents/NCS_Projects/ttpms_v2_internal/nrf52833dk/zephyr/drivers/i2c/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/Ryland/Documents/NCS_Projects/ttpms_v2_internal/nrf52833dk/zephyr/drivers/entropy/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
