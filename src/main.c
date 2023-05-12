@@ -124,7 +124,7 @@ static void subscribe_temp(const struct bt_gatt_attr *attr, uint16_t value)
 }
 
 
-// Primary Service Declaration
+// GATT table declaration
 BT_GATT_SERVICE_DEFINE(primary_service,
 	BT_GATT_PRIMARY_SERVICE(&primary_service_uuid),
 		BT_GATT_CHARACTERISTIC(&temp_characteristic_uuid.uuid, BT_GATT_CHRC_NOTIFY, NULL, NULL, NULL, NULL),
@@ -208,7 +208,7 @@ void main(void)
 	adv_param.interval_min = BLE_ADV_INTERVAL_MIN;
 	adv_param.interval_max = BLE_ADV_INTERVAL_MAX;
 
-	err = bt_le_adv_start(BT_LE_ADV_CONN_NAME, ad, ARRAY_SIZE(ad), NULL, 0);
+	err = bt_le_adv_start(&adv_param, ad, ARRAY_SIZE(ad), NULL, 0);
 	if (err) {
 		LOG_ERR("Advertising failed to start (err %d)", err);
 	} else {
@@ -216,7 +216,6 @@ void main(void)
 	}
 
 }
-
 
 
 void temp_thread(void *dummy1, void *dummy2, void *dummy3)
@@ -270,7 +269,7 @@ void temp_thread(void *dummy1, void *dummy2, void *dummy3)
 	while (atomic_test_bit(flags, TEMP_ENABLED_FLAG))	// atomic babbyyyy
 	{
 
-		uint16_t frame[834];
+		uint16_t frame[242];
 
 		status = MLX90641_GetFrameData(MLX90641_ADDR, frame);	// this function waits until data is available from MLX
 		if (status < 0) {
